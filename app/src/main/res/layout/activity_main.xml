@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    tools:context=".MainActivity">
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F0F0F0"/>
-</LinearLayout>
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/Input1"
+            android:hint="검색어"
+            android:layout_width="match_parent"
+            android:layout_height="65dp" />
+
+        <EditText
+            android:id="@+id/Input2"
+            android:hint="생애주기"
+            android:layout_width="match_parent"
+            android:layout_height="65dp" />
+
+        <EditText
+            android:id="@+id/Input3"
+            android:hint="가구유형"
+            android:layout_width="match_parent"
+            android:layout_height="65dp" />
+
+        <EditText
+            android:id="@+id/Input4"
+            android:hint="문화및여가"
+            android:layout_width="match_parent"
+            android:layout_height="65dp" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonAPI"
+            android:onClick="onClick_serch"
+            android:text="검색" />
+
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
