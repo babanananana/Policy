@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10sp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ImageButton
+            android:id="@+id/menubtn"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_marginTop="7sp"
+            android:adjustViewBounds="true"
+            android:background="#00FFFFFF"
+            android:scaleType="fitCenter"
+            android:src="@drawable/menubtn"
+            tools:ignore="SpeakableTextPresentCheck" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/search"
+            android:layout_marginStart="100sp"
+            android:text="검색"
+            android:textSize="45sp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30sp">
+        <TextView
+            android:id="@+id/search_detail_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="국가장학금"
+            android:textSize="30sp"
+            android:layout_weight="1"
+            />
+        <Button
+            android:id="@+id/search_detail_exit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="40sp"
+            android:layout_gravity="end"
+            android:background="@drawable/btn_round"
+            android:text="나가기"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20sp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/search_detail_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="내용"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/search_detail_content_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30sp"
+                    android:text=""
+                    android:textSize="25sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/search_detail_target"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="조건"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/search_detail_target_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30sp"
+                    android:text=""
+                    android:textSize="25sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/search_detail_sup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="준비물"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/search_detail_sup_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10sp"
+                    android:text=""
+                    android:textSize="25sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/search_detail_etc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="기타"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/search_detail_etc_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30sp"
+                    android:text=""
+                    android:textSize="25sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

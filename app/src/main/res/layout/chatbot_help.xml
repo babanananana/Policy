@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/backbtn"
+                android:layout_width="60dp"
+                android:layout_height="80dp"
+                android:layout_margin="20dp"
+                android:src="@drawable/backbtn" />
+
+            <TextView
+                android:id="@+id/heip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="도움말"
+                android:layout_marginRight="70dp"
+                android:textSize="45dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="30dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/heip1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="정첵일림e는,"
+                    android:textSize="45dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/heip2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="첫째!"
+                    android:textSize="45dp" />
+
+                <TextView
+                    android:id="@+id/heip3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="맞춤 검색을 통해 나의 조건에 맞는 정보를 확인할수있어요"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/heip4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="둘째!"
+                    android:textSize="45dp" />
+
+                <TextView
+                    android:id="@+id/heip5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="나에게 필요한 정보는 즐겨찾기 기능을 통해 한눈에 볼 수 있어요"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/heip6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="셋째!"
+                    android:textSize="45dp" />
+
+                <TextView
+                    android:id="@+id/heip7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="알람 설정을 통해 신청기간을 놓치는 상황을 대비할 수 있어요"
+                    android:textSize="20dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

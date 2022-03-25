@@ -13,9 +13,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mobile.PolicyApp.Parser.PublicDataDetail;
 import com.mobile.PolicyApp.Parser.PublicDataList;
 import com.mobile.PolicyApp.Parser.PublicDataListParser;
 import com.mobile.PolicyApp.Parser.WantedList;
+import com.mobile.PolicyApp.R;
 
 import org.xml.sax.Parser;
 import org.xmlpull.v1.XmlPullParser;
