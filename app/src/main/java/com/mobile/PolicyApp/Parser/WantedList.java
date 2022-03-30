@@ -1,5 +1,5 @@
 package com.mobile.PolicyApp.Parser;
-
+////목록조회 기본값
 public class WantedList {
     public String serviceKey;
     public String callTp            = "L";      //페이지타입 L:목록 D상세

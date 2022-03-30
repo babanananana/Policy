@@ -33,10 +33,17 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/*API흐름
+ * 리스트뷰초기화 -> URL생성 -> URL연결 -> 파서 ->데이터출력
+ *
+ *
+ *
+ * */
 public class MainActivity extends AppCompatActivity {
 
     PublicDataListParser parser = new PublicDataListParser();
     ArrayList<PublicDataList> listPublicData;
+    ArrayList<PublicDataDetail> listPublicDataArray;
 
     // Scroll
     final ArrayList<String> scrollItemList = new ArrayList<String>();
@@ -80,10 +87,10 @@ public class MainActivity extends AppCompatActivity {
                     wantedList.trgterIndvdlArray=input3.getText().toString();  // 가구유형
                     wantedList.desireArray=input4.getText().toString();         // 문화및여가
 
+                    // [목록 조회]
                     // URL 생성
+                    /*
                     String strURL = parser.CreatePublicDataListURL(wantedList);
-
-
                     URL url = new URL(strURL);
                     // 연결
                     parser.HttpURLConnection(url);
@@ -91,6 +98,14 @@ public class MainActivity extends AppCompatActivity {
                     listPublicData = parser.XMLParser(url);
                     // 데이터 출력
                     ShowData();
+                    */
+
+                    // [상세 보기 ]
+                    String strURL = parser.CreatePublicDetailListURL();
+                    URL url = new URL(strURL);
+                    parser.HttpURLConnection(url);
+                    listPublicDataArray = parser.XMLParser_Detail(url);
+                    ShowDetailData();
 
                 }
                 catch (Exception e){
@@ -108,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         list.setAdapter(adapter);
     }
 
-    // 리스트 뷰에 데이터 출력
+    // 리스트 뷰에 목록조회 데이터 출력
     void ShowData()
     {
         runOnUiThread(new Runnable() {
@@ -127,6 +142,32 @@ public class MainActivity extends AppCompatActivity {
                     info.append(listPublicData.get(i).servID + "\n");
 
                     scrollItemList.add((i+1) + " : " + info.toString());
+                }
+                adapter.notifyDataSetChanged(); //스크롤갱신
+            }
+        });
+    }
+
+    // 리스트 뷰에 상세보기 데이터 출력
+    void ShowDetailData()
+    {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                scrollItemList.clear();
+
+                for(int i = 0; i <listPublicDataArray.size(); i++)
+                {
+                    StringBuilder info = new StringBuilder();
+                    info.append(listPublicDataArray.get(i).servNm + "\n");
+                    info.append(listPublicDataArray.get(i).jurMnofNm + "\n");
+                    info.append(listPublicDataArray.get(i).tgtrDtlCn + "\n");
+                    info.append(listPublicDataArray.get(i).slctCritCn + "\n");
+                    info.append(listPublicDataArray.get(i).alwServCn + "\n");
+                    info.append(listPublicDataArray.get(i).trgterIndvdlArray + "\n");
+                    info.append(listPublicDataArray.get(i).lifeArray + "\n");
+
+                    scrollItemList.add(" : " + info.toString());
                 }
                 adapter.notifyDataSetChanged(); //스크롤갱신
             }
