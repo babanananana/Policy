@@ -7,45 +7,151 @@
     tools:context=".MainActivity">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical">-->
 
-        <EditText
-            android:id="@+id/Input1"
-            android:hint="검색어"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="65dp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/Input2"
-            android:hint="생애주기"
-            android:layout_width="match_parent"
-            android:layout_height="65dp" />
+            <EditText
+                android:id="@+id/input_searchWrd"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:hint="검색어" />
 
-        <EditText
-            android:id="@+id/Input3"
-            android:hint="가구유형"
-            android:layout_width="match_parent"
-            android:layout_height="65dp" />
+            <EditText
+                android:id="@+id/input_lifeArray"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:hint="생애주기" />
 
-        <EditText
-            android:id="@+id/Input4"
-            android:hint="문화및여가"
-            android:layout_width="match_parent"
-            android:layout_height="65dp" />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonAPI"
-            android:onClick="onClick_serch"
-            android:text="검색" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal">-->
 
-        <ListView
-            android:id="@+id/listView1"
+<!--                <Button-->
+<!--                    android:id="@+id/input_lifeArray_001"-->
+<!--                    android:layout_width="80dp"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:layout_marginLeft="14dp"-->
+<!--                    android:onClick="onClick_lifeArray_001"-->
+<!--                    android:text="영유아" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/input_lifeArray_002"-->
+<!--                    android:layout_width="80dp"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:layout_marginLeft="14dp"-->
+<!--                    android:onClick="onClick_lifeArray_002"-->
+<!--                    android:text="아동" />-->
+<!--                <Button-->
+<!--                    android:id="@+id/input_lifeArray_003"-->
+<!--                    android:layout_width="80dp"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:layout_marginLeft="14dp"-->
+<!--                    android:onClick="onClick_lifeArray_003"-->
+<!--                    android:text="청소년" />-->
+<!--                <Button-->
+<!--                    android:id="@+id/input_lifeArray_004"-->
+<!--                    android:layout_width="80dp"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:layout_marginLeft="14dp"-->
+<!--                    android:onClick="onClick_lifeArray_004"-->
+<!--                    android:text="청년" />-->
+<!--            </LinearLayout>-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <EditText
+                    android:id="@+id/input_trgterIndvdlArray"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:hint="가구유형" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+<!--                    <Button-->
+<!--                        android:id="@+id/input_trgterIndvdlArray_010"-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:layout_marginLeft="14dp"-->
+<!--                        android:onClick="onClick_trgterIndvdlArray_010"-->
+<!--                        android:text="다문화" />-->
+
+<!--                    <Button-->
+<!--                        android:id="@+id/input_trgterIndvdlArray_020"-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:layout_marginLeft="14dp"-->
+<!--                        android:onClick="onClick_trgterIndvdlArray_020"-->
+<!--                        android:text="다자녀" />-->
+<!--                    <Button-->
+<!--                        android:id="@+id/input_trgterIndvdlArray_030"-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:layout_marginLeft="14dp"-->
+<!--                        android:onClick="onClick_trgterIndvdlArray_030"-->
+<!--                        android:text="보훈" />-->
+<!--                    <Button-->
+<!--                        android:id="@+id/input_trgterIndvdlArray_040"-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:layout_marginLeft="14dp"-->
+<!--                        android:onClick="onClick_trgterIndvdlArray_040"-->
+<!--                        android:text="장애인" />-->
+<!--                </LinearLayout>-->
+
+                <EditText
+                    android:id="@+id/input_desireArray"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:hint="문화및여가" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonAPI_List"
+                    android:layout_width="220dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="14dp"
+                    android:onClick="onClick_serch_List"
+                    android:text="목록조회" />
+
+                <Button
+                    android:id="@+id/buttonAPI_Detail"
+                    android:layout_width="220dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="12dp"
+                    android:onClick="onClick_serch_Detail"
+                    android:text="상세정보검색" />
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/listView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"></LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

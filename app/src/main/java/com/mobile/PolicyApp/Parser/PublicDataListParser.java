@@ -2,6 +2,8 @@ package com.mobile.PolicyApp.Parser;
 
 //import com.mobile.PolicyApp.PublicData;
 
+import androidx.annotation.NonNull;
+
 import com.mobile.PolicyApp.Parser.PublicDataDetail;
 import com.mobile.PolicyApp.Parser.PublicDataList;
 import com.mobile.PolicyApp.Parser.WantedList;
@@ -18,15 +20,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-
-//URL생성
+//목록 조회 URL 만들고 파싱해주는곳
 public class PublicDataListParser {
 
+    public  int numbers  = 10;
+
     public ArrayList<PublicDataList>   publicDataLists  = new ArrayList<PublicDataList>();
-    public ArrayList<PublicDataDetail> publicDataDetailArray = new ArrayList<PublicDataDetail>();
 
-    public String CreatePublicDataListURL(WantedList wantedList) throws UnsupportedEncodingException {
-
+    // 목록 조회 URL 만들기
+    public String CreatePublicDataListURL(@NonNull WantedList wantedList) throws UnsupportedEncodingException
+    {
         StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/B554287/NationalWelfareInformations/NationalWelfarelist"); /*URL*/
         urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=%2BWnjcadNxjH3FFyaHjifaa6i%2Fi3l9YuKKNF1N1NHsyUESdHZm8EY1NYJv690quMUhZ7NQXKfyW4jQW%2FhuiF37A%3D%3D"); /*Service Key*/
         urlBuilder.append("&" + URLEncoder.encode("callTp","UTF-8") + "=" + URLEncoder.encode(wantedList.callTp, "UTF-8")); /*호출할 페이지 타입을 반드시 설정합니다.(L: 목록, D:상세)*/
@@ -51,49 +54,6 @@ public class PublicDataListParser {
 
         return urlBuilder.toString();
     }
-
-    public String CreatePublicDetailListURL() throws UnsupportedEncodingException
-    {
-        StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/B554287/NationalWelfareInformations/NationalWelfaredetailed"); /*URL*/
-        urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=%2BWnjcadNxjH3FFyaHjifaa6i%2Fi3l9YuKKNF1N1NHsyUESdHZm8EY1NYJv690quMUhZ7NQXKfyW4jQW%2FhuiF37A%3D%3D"); /*Service Key*/
-        urlBuilder.append("&" + URLEncoder.encode("callTp","UTF-8") + "=" + URLEncoder.encode("D", "UTF-8")); /*호출할 페이지 타입을 반드시 설정합니다.(L: 목록, D:상세)*/
-        urlBuilder.append("&" + URLEncoder.encode("servId","UTF-8") + "=" + URLEncoder.encode("WLF00000060", "UTF-8")); /*검색어*/
-
-        return urlBuilder.toString();
-    }
-
-    // 연결
-    public void HttpURLConnection(URL url)
-    {
-        HttpURLConnection conn = null;
-        try {
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setRequestProperty("Content-type", "application/xml");
-            System.out.println("Response code: " + conn.getResponseCode());
-
-            BufferedReader rd;
-            if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-                rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            } else {
-                rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-            }
-
-            StringBuilder sb = new StringBuilder();
-            String line;
-
-            while ((line = rd.readLine()) != null) {
-                sb.append(line);
-            }
-            rd.close();
-            conn.disconnect();
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-    }
-
 
     // XML 파서 [ 목록 조회 ]
     public  ArrayList<PublicDataList> XMLParser(URL url)
@@ -133,6 +93,14 @@ public class PublicDataListParser {
                             buffer.append("단체  : ");
                             xpp.next();
                             data.jurMnofNm =xpp.getText();
+
+                            buffer.append(xpp.getText());
+                            buffer.append("\n"); //줄바꿈 문자 추가
+                        }
+                        else if(tag.equals("lifeArray")){
+                            buffer.append("생애주기  : ");
+                            xpp.next();
+                            data.lifeArray =xpp.getText();
 
                             buffer.append(xpp.getText());
                             buffer.append("\n"); //줄바꿈 문자 추가
@@ -209,128 +177,7 @@ public class PublicDataListParser {
         return publicDataLists;
     }
 
-    // XML 파서 [ 상세 보기 ]
-    public  ArrayList<PublicDataDetail> XMLParser_Detail(URL url)
-    {
-        int eventType =0;
-        String tag;
-        PublicDataDetail data = new PublicDataDetail();
 
-        publicDataDetailArray.clear();
-
-        try {
-            // XML 파서
-            StringBuilder buffer = new StringBuilder();
-            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-            XmlPullParser xpp = factory.newPullParser();
-
-            InputStream is =url.openStream();
-            xpp.setInput( new InputStreamReader(is,"UTF-8") );
-
-            xpp.next();
-
-
-            while( eventType != XmlPullParser.END_DOCUMENT ) {
-
-                switch (eventType) {
-                    case XmlPullParser.START_DOCUMENT:
-                        buffer.append("파싱 시작 \n\n");
-                        break;
-
-                    case XmlPullParser.START_TAG:
-                        tag= xpp.getName(); // 태그 이름 얻어오기
-                        if(tag.equals("wantedDtl")) {
-                            data.SetEmpty();
-                        }
-
-                        else if(tag.equals("servNm")){
-                            buffer.append("서비스명  : ");
-                            xpp.next();
-                            data.servNm =xpp.getText();
-
-                            buffer.append(xpp.getText());
-                            buffer.append("\n"); //줄바꿈 문자 추가
-                        }
-
-                        else if(tag.equals("jurMnofNm")){
-                            buffer.append("소관부처명 : ");
-                            xpp.next();
-                            data.jurMnofNm =xpp.getText();
-                            //servDgst = getTextpp.();
-
-                            buffer.append(xpp.getText());
-                            buffer.append("\n");
-                        }
-                        else if(tag.equals("tgtrDtlCn")){
-                            buffer.append("대상자 :");
-                            xpp.next();
-                            data.tgtrDtlCn =xpp.getText();
-
-                            buffer.append(xpp.getText());
-                            buffer.append("\n");
-                        }
-                        else if(tag.equals("slctCritCn")){
-                            buffer.append("선정기준 :");
-                            xpp.next();
-                            data.slctCritCn =xpp.getText();
-                            //servNm= xpp.getText();
-
-                            buffer.append(xpp.getText());
-                            buffer.append("\n");
-                        }
-                        else if(tag.equals("alwServCn")){
-                            buffer.append("급여서비스:");
-                            xpp.next();
-                            data.alwServCn =xpp.getText();
-
-
-                            buffer.append(xpp.getText());
-                            buffer.append("\n");
-                        }
-                        else if(tag.equals("trgterIndvdlArray")){
-                            buffer.append("가구유형 :");
-                            xpp.next();
-                            data.trgterIndvdlArray =xpp.getText();
-
-                            buffer.append(xpp.getText());
-                            buffer.append("\n");
-                        }
-                        else if(tag.equals("lifeArray")){
-                            buffer.append("생애주기 :");
-                            xpp.next();
-                            data.lifeArray =xpp.getText();
-
-
-                            buffer.append(xpp.getText());
-                            buffer.append("\n");
-                        }
-                        break;
-
-                    case XmlPullParser.TEXT:
-                        break;
-
-                    case XmlPullParser.END_TAG:
-                        tag= xpp.getName(); // 태그 이름 얻어오기
-
-                        if(tag.equals("wantedDtl")) {
-                            buffer.append("\n"); // 첫번째 검색결과 끝 줄바꿈
-
-                            publicDataDetailArray.add(new PublicDataDetail(data));
-
-                        }
-                        break;
-                }
-                eventType= xpp.next();
-            }
-
-        }
-        catch (Exception e)
-        {
-
-        }
-
-        return publicDataDetailArray;
-    }
 }
 
 

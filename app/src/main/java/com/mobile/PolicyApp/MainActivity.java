@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.mobile.PolicyApp.Parser.PublicDataDetail;
 import com.mobile.PolicyApp.Parser.PublicDataList;
 import com.mobile.PolicyApp.Parser.PublicDataListParser;
+import com.mobile.PolicyApp.Parser.PublicDataParser;
+import com.mobile.PolicyApp.Parser.WantedDetail;
 import com.mobile.PolicyApp.Parser.WantedList;
 import com.mobile.PolicyApp.R;
 
@@ -36,26 +38,38 @@ import java.util.List;
 /*API흐름
  * 리스트뷰초기화 -> URL생성 -> URL연결 -> 파서 ->데이터출력
  *
- *
- *
- * */
+ */
+
+
 public class MainActivity extends AppCompatActivity {
 
-    PublicDataListParser parser = new PublicDataListParser();
-    ArrayList<PublicDataList> listPublicData;
-    ArrayList<PublicDataDetail> listPublicDataArray;
+    //PublicDataListParser parser = new PublicDataListParser();
+    PublicDataParser parser = new PublicDataParser();
+
+    ArrayList<PublicDataList>   publicDataArray;
+    ArrayList<PublicDataDetail> publicDetailArray;
 
     // Scroll
     final ArrayList<String> scrollItemList = new ArrayList<String>();
     ArrayAdapter<String> adapter = null;
 
-    public void onClick_serch(View view)
+    String serachServID;
+
+    String lifeArrayText;
+
+
+
+
+    public void onClick_serch_List(View view)
     {
         Toast.makeText(getApplicationContext(), "버튼 클릭!!", Toast.LENGTH_SHORT).show();
-        SearchData();
-
+        SearchDataList();
     }
-
+    public void  onClick_serch_Detail(View view)
+    {
+        Toast.makeText(getApplicationContext(), "버튼 클릭!!", Toast.LENGTH_SHORT).show();
+        SearchDateDetail();
+    }
 
 
     @Override
@@ -69,43 +83,59 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    void SearchData()
+    void SearchDataList()
     {
         new Thread(){
             public  void run(){
                 try {
 
-                    EditText input1 = findViewById(R.id.Input1);
-                    EditText input2 = findViewById(R.id.Input2);
-                    EditText input3 = findViewById(R.id.Input3);
-                    EditText input4 = findViewById(R.id.Input4);
+                    EditText input_searchWrd = findViewById(R.id.input_searchWrd);
+                    EditText input_lifeArray = findViewById(R.id.input_lifeArray);
+                    EditText input_trgterIndvdlArray = findViewById(R.id.input_trgterIndvdlArray);
+                    EditText input_desireArray = findViewById(R.id.input_desireArray);
+
+
+
 
                     // 검색에 필요한 입력 데이터
                     WantedList wantedList = new WantedList();
-                    wantedList.searchWrd = input1.getText().toString();        // 키워드
-                    wantedList.lifeArray = input2.getText().toString();        // 생애주기
-                    wantedList.trgterIndvdlArray=input3.getText().toString();  // 가구유형
-                    wantedList.desireArray=input4.getText().toString();         // 문화및여가
+                    wantedList.searchWrd = input_searchWrd.getText().toString();        // 키워드
+                    //wantedList.lifeArray = input_lifeArray.getText().toString();        // 생애주기
+                    wantedList.trgterIndvdlArray=input_trgterIndvdlArray.getText().toString();  // 가구유형
+                    wantedList.desireArray=input_desireArray.getText().toString();         // 문화및여가
+
+                    lifeArrayText=input_lifeArray.getText().toString();
+
+
+
+
 
                     // [목록 조회]
-                    // URL 생성
-                    /*
-                    String strURL = parser.CreatePublicDataListURL(wantedList);
-                    URL url = new URL(strURL);
-                    // 연결
-                    parser.HttpURLConnection(url);
-                    // 파서
-                    listPublicData = parser.XMLParser(url);
-                    // 데이터 출력
-                    ShowData();
-                    */
+                    if(parser.PulbicDataList_HttpURLConnection(wantedList)) {
+                        publicDataArray = parser.XMLParserDataList();
+                        ShowPublicDataList();
+                    }
+                }
+                catch (Exception e){
 
-                    // [상세 보기 ]
-                    String strURL = parser.CreatePublicDetailListURL();
-                    URL url = new URL(strURL);
-                    parser.HttpURLConnection(url);
-                    listPublicDataArray = parser.XMLParser_Detail(url);
-                    ShowDetailData();
+                }
+            }
+        }.start();
+    }
+
+
+    void SearchDateDetail(){
+        new Thread(){
+            public  void run(){
+                try {
+                    // [상세보기 ]
+                    WantedDetail wantedDetail=new WantedDetail();
+                    wantedDetail.servID = serachServID;
+                    if(parser.PulbicDataDetail_HttpURLConnection(wantedDetail)){
+                        publicDetailArray = parser.XMLParserDataDetail();
+
+                        ShowPublicDetailData();
+                    }
 
                 }
                 catch (Exception e){
@@ -121,25 +151,44 @@ public class MainActivity extends AppCompatActivity {
         ListView list = (ListView) findViewById(R.id.listView1);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, scrollItemList);
         list.setAdapter(adapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                serachServID = publicDataArray.get(position).servID;
+                Toast.makeText(getApplicationContext(), "servID : " + serachServID  + " / pos : " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    // 리스트 뷰에 목록조회 데이터 출력
-    void ShowData()
+
+
+    // 리스트 뷰에 목록 조회 데이터 출력
+    void ShowPublicDataList()
     {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 scrollItemList.clear();
 
-                for(int i = 0; i <listPublicData.size(); i++)
+                for(int i = 0; i <publicDataArray.size(); i++)
                 {
                     StringBuilder info = new StringBuilder();
-                    info.append(listPublicData.get(i).servNm + "\n");
-                    info.append(listPublicData.get(i).jurMnofNm + "\n");
-                    info.append(listPublicData.get(i).trgterIndvdlArray + "\n");
-                    info.append(listPublicData.get(i).servDgst + "\n");
-                    info.append(listPublicData.get(i).servDtlLink + "\n");
-                    info.append(listPublicData.get(i).servID + "\n");
+                    info.append(publicDataArray.get(i).servNm + "\n");
+                    info.append(publicDataArray.get(i).jurMnofNm + "\n");
+                    info.append(publicDataArray.get(i).lifeArray + "\n");
+                    info.append(publicDataArray.get(i).trgterIndvdlArray + "\n");
+                    info.append(publicDataArray.get(i).servDgst + "\n");
+                    info.append(publicDataArray.get(i).servDtlLink + "\n");
+                    info.append(publicDataArray.get(i).servID + "\n");
+
+//                    if(publicDataArray.get(i).lifeArray.contains(lifeArrayText))
+//                    {
+//                        info.append(lifeArrayText + "\n");
+//                    }
+
+
 
                     scrollItemList.add((i+1) + " : " + info.toString());
                 }
@@ -147,25 +196,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    // 리스트 뷰에 상세보기 데이터 출력
-    void ShowDetailData()
+    // 리스트 뷰에 상세 보기 데이터 출력
+    void ShowPublicDetailData()
     {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 scrollItemList.clear();
 
-                for(int i = 0; i <listPublicDataArray.size(); i++)
+                for(int i = 0; i <publicDetailArray.size(); i++)
                 {
                     StringBuilder info = new StringBuilder();
-                    info.append(listPublicDataArray.get(i).servNm + "\n");
-                    info.append(listPublicDataArray.get(i).jurMnofNm + "\n");
-                    info.append(listPublicDataArray.get(i).tgtrDtlCn + "\n");
-                    info.append(listPublicDataArray.get(i).slctCritCn + "\n");
-                    info.append(listPublicDataArray.get(i).alwServCn + "\n");
-                    info.append(listPublicDataArray.get(i).trgterIndvdlArray + "\n");
-                    info.append(listPublicDataArray.get(i).lifeArray + "\n");
+                    if(publicDetailArray.get(i).servNm != null)
+                        info.append(publicDetailArray.get(i).servNm + "\n");
+
+                    if(publicDetailArray.get(i).jurMnofNm != null)
+                        info.append(publicDetailArray.get(i).jurMnofNm + "\n");
+
+                    if(publicDetailArray.get(i).tgtrDtlCn != null)
+                        info.append(publicDetailArray.get(i).tgtrDtlCn + "\n");
+
+                    if(publicDetailArray.get(i).slctCritCn != null)
+                        info.append(publicDetailArray.get(i).slctCritCn + "\n");
+
+                    if(publicDetailArray.get(i).alwServCn != null)
+                        info.append(publicDetailArray.get(i).alwServCn + "\n");
+
+                    if(publicDetailArray.get(i).trgterIndvdlArray != null)
+                        info.append(publicDetailArray.get(i).trgterIndvdlArray + "\n");
+
+                    if(publicDetailArray.get(i).lifeArray != null)
+                        info.append(publicDetailArray.get(i).lifeArray + "\n");
 
                     scrollItemList.add(" : " + info.toString());
                 }
