@@ -14,14 +14,13 @@ import java.util.ArrayList;
 //URL연결해주는곳
 public class PublicDataParser {
 
-
     public  PublicDataListParser   publicDataListParser   = new PublicDataListParser();
-
     public  PublicDataDetailParser publicDataDetailParser = new PublicDataDetailParser();
 
     private  URL dataListURL   = null;
     private  URL dataDetailURL = null;
 
+    //목록조회url연결
     public boolean  PulbicDataList_HttpURLConnection(WantedList wantedList) throws UnsupportedEncodingException, MalformedURLException {
 
         String strURL = publicDataListParser.CreatePublicDataListURL(wantedList);
@@ -38,6 +37,7 @@ public class PublicDataParser {
         return publicDataListParser.XMLParser(dataListURL);
     }
 
+    //상세보기url연결
     public boolean  PulbicDataDetail_HttpURLConnection(WantedDetail wantedDetail)throws UnsupportedEncodingException, MalformedURLException{
         String strURL=publicDataDetailParser.CreatePublicDetailURL(wantedDetail);
         dataDetailURL=new URL(strURL);
@@ -50,8 +50,6 @@ public class PublicDataParser {
 
     public ArrayList<PublicDataDetail> XMLParserDataDetail()//상세파서
     {
-        //ArrayList<PublicDataDetail> food = publicDataDetailParser.XMLParser(dataDetailURL);
-        //return food;
         return publicDataDetailParser.XMLParser(dataDetailURL);
     }
 

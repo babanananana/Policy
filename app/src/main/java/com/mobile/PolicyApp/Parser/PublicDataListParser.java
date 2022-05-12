@@ -23,8 +23,6 @@ import java.util.ArrayList;
 //목록 조회 URL 만들고 파싱해주는곳
 public class PublicDataListParser {
 
-    public  int numbers  = 10;
-
     public ArrayList<PublicDataList>   publicDataLists  = new ArrayList<PublicDataList>();
 
     // 목록 조회 URL 만들기
@@ -49,7 +47,7 @@ public class PublicDataListParser {
             urlBuilder.append("&" + URLEncoder.encode("obstAbtArray","UTF-8") + "=" + URLEncoder.encode(wantedList.obstAbtArray, "UTF-8")); /*코드표참조*/
         if(!wantedList.trgterIndvdlArray.isEmpty())
             urlBuilder.append("&" + URLEncoder.encode("trgterIndvdlArray","UTF-8") + "=" + URLEncoder.encode(wantedList.trgterIndvdlArray, "UTF-8")); /*코드표참조*/
-        if(!wantedList.trgterIndvdlArray.isEmpty())
+        if(!wantedList.desireArray.isEmpty())
             urlBuilder.append("&" + URLEncoder.encode("desireArray","UTF-8") + "=" + URLEncoder.encode(wantedList.desireArray, "UTF-8")); /*코드표참조*/
 
         return urlBuilder.toString();
