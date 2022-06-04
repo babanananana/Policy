@@ -7,10 +7,6 @@
     tools:context=".MainActivity">
 
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:orientation="vertical">-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,50 +16,16 @@
             <EditText
                 android:id="@+id/input_searchWrd"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
+                android:layout_height="60dp"
                 android:hint="검색어" />
 
             <EditText
                 android:id="@+id/input_lifeArray"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
+                android:layout_height="60dp"
                 android:hint="생애주기" />
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal">-->
 
-<!--                <Button-->
-<!--                    android:id="@+id/input_lifeArray_001"-->
-<!--                    android:layout_width="80dp"-->
-<!--                    android:layout_height="50dp"-->
-<!--                    android:layout_marginLeft="14dp"-->
-<!--                    android:onClick="onClick_lifeArray_001"-->
-<!--                    android:text="영유아" />-->
-
-<!--                <Button-->
-<!--                    android:id="@+id/input_lifeArray_002"-->
-<!--                    android:layout_width="80dp"-->
-<!--                    android:layout_height="50dp"-->
-<!--                    android:layout_marginLeft="14dp"-->
-<!--                    android:onClick="onClick_lifeArray_002"-->
-<!--                    android:text="아동" />-->
-<!--                <Button-->
-<!--                    android:id="@+id/input_lifeArray_003"-->
-<!--                    android:layout_width="80dp"-->
-<!--                    android:layout_height="50dp"-->
-<!--                    android:layout_marginLeft="14dp"-->
-<!--                    android:onClick="onClick_lifeArray_003"-->
-<!--                    android:text="청소년" />-->
-<!--                <Button-->
-<!--                    android:id="@+id/input_lifeArray_004"-->
-<!--                    android:layout_width="80dp"-->
-<!--                    android:layout_height="50dp"-->
-<!--                    android:layout_marginLeft="14dp"-->
-<!--                    android:onClick="onClick_lifeArray_004"-->
-<!--                    android:text="청년" />-->
-<!--            </LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,50 +36,22 @@
                 <EditText
                     android:id="@+id/input_trgterIndvdlArray"
                     android:layout_width="match_parent"
-                    android:layout_height="65dp"
+                    android:layout_height="60dp"
                     android:hint="가구유형" />
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:orientation="horizontal">
 
-<!--                    <Button-->
-<!--                        android:id="@+id/input_trgterIndvdlArray_010"-->
-<!--                        android:layout_width="80dp"-->
-<!--                        android:layout_height="50dp"-->
-<!--                        android:layout_marginLeft="14dp"-->
-<!--                        android:onClick="onClick_trgterIndvdlArray_010"-->
-<!--                        android:text="다문화" />-->
 
-<!--                    <Button-->
-<!--                        android:id="@+id/input_trgterIndvdlArray_020"-->
-<!--                        android:layout_width="80dp"-->
-<!--                        android:layout_height="50dp"-->
-<!--                        android:layout_marginLeft="14dp"-->
-<!--                        android:onClick="onClick_trgterIndvdlArray_020"-->
-<!--                        android:text="다자녀" />-->
-<!--                    <Button-->
-<!--                        android:id="@+id/input_trgterIndvdlArray_030"-->
-<!--                        android:layout_width="80dp"-->
-<!--                        android:layout_height="50dp"-->
-<!--                        android:layout_marginLeft="14dp"-->
-<!--                        android:onClick="onClick_trgterIndvdlArray_030"-->
-<!--                        android:text="보훈" />-->
-<!--                    <Button-->
-<!--                        android:id="@+id/input_trgterIndvdlArray_040"-->
-<!--                        android:layout_width="80dp"-->
-<!--                        android:layout_height="50dp"-->
-<!--                        android:layout_marginLeft="14dp"-->
-<!--                        android:onClick="onClick_trgterIndvdlArray_040"-->
-<!--                        android:text="장애인" />-->
-<!--                </LinearLayout>-->
 
                 <EditText
                     android:id="@+id/input_desireArray"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
-                    android:hint="문화및여가" />
+                    android:hint="사업목적" />
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -19,10 +19,12 @@ public class PublicDataDetailParser {
     // 상세 보기 URL 만들기
     public String CreatePublicDetailURL(@NonNull WantedDetail wantedDetail) throws UnsupportedEncodingException
     {
-        StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/B554287/NationalWelfareInformations/NationalWelfaredetailed"); /*URL*/
-        urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=%2BWnjcadNxjH3FFyaHjifaa6i%2Fi3l9YuKKNF1N1NHsyUESdHZm8EY1NYJv690quMUhZ7NQXKfyW4jQW%2FhuiF37A%3D%3D"); /*Service Key*/
-        urlBuilder.append("&" + URLEncoder.encode("callTp","UTF-8") + "=" + URLEncoder.encode(wantedDetail.callTp, "UTF-8")); /*호출할 페이지 타입을 반드시 설정합니다.(L: 목록, D:상세)*/
-        urlBuilder.append("&" + URLEncoder.encode("servId","UTF-8") + "=" + URLEncoder.encode(wantedDetail.servID, "UTF-8")); /*검색어*/
+        StringBuilder urlBuilder = new StringBuilder("http://openapi.work.go.kr/opi/opi/opia/wantedApi.do"); /*URL*/
+        urlBuilder.append("?" + URLEncoder.encode("authKey","UTF-8") +"="+ "WNL2XYNKFLGTOE5A06NKA2VR1HJ");
+        urlBuilder.append("&" + URLEncoder.encode("callTp","UTF-8") + "=" + URLEncoder.encode(wantedDetail.callTp, "UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("returnType","UTF-8") + "=" + URLEncoder.encode(wantedDetail.returnType, "UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("wantedAuthNo","UTF-8") + "=" + URLEncoder.encode(wantedDetail.wantedAuthNo, "UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("infoSvc","UTF-8") + "=" + URLEncoder.encode(wantedDetail.infoSvc, "UTF-8"));
 
         return urlBuilder.toString();
     }
@@ -56,66 +58,80 @@ public class PublicDataDetailParser {
 
                     case XmlPullParser.START_TAG:
                         tag= xpp.getName(); // 태그 이름 얻어오기
-                        if(tag.equals("wantedDtl")) {
+                        if(tag.equals("wantedInfo")) {
                             data.SetEmpty();
                         }
 
-                        else if(tag.equals("servNm")){
-                            buffer.append("서비스명  : ");
+                        else if(tag.equals("jobsNm")){
+
                             xpp.next();
-                            data.servNm =xpp.getText();
+                            data.jobsNm =xpp.getText();
 
                             buffer.append(xpp.getText());
                             buffer.append("\n"); //줄바꿈 문자 추가
                         }
 
-                        else if(tag.equals("jurMnofNm")){
-                            buffer.append("소관부처명 : ");
+                        else if(tag.equals("wantedTitle")){
                             xpp.next();
-                            data.jurMnofNm =xpp.getText();
-                            //servDgst = getTextpp.();
+                            data.wantedTitle =xpp.getText();
 
                             buffer.append(xpp.getText());
                             buffer.append("\n");
                         }
-                        else if(tag.equals("tgtrDtlCn")){
-                            buffer.append("대상자 :");
+                        else if(tag.equals("relJobsNm")){
+
                             xpp.next();
-                            data.tgtrDtlCn =xpp.getText();
+                            data.relJobsNm =xpp.getText();
 
                             buffer.append(xpp.getText());
                             buffer.append("\n");
                         }
-                        else if(tag.equals("slctCritCn")){
-                            buffer.append("선정기준 :");
+                        else if(tag.equals("jobCont")){
+
                             xpp.next();
-                            data.slctCritCn =xpp.getText();
+                            data.jobCont =xpp.getText();
                             //servNm= xpp.getText();
 
                             buffer.append(xpp.getText());
                             buffer.append("\n");
                         }
-                        else if(tag.equals("alwServCn")){
-                            buffer.append("급여서비스:");
+                        else if(tag.equals("salTpNm")){
+
                             xpp.next();
-                            data.alwServCn =xpp.getText();
+                            data.salTpNm =xpp.getText();
 
 
                             buffer.append(xpp.getText());
                             buffer.append("\n");
                         }
-                        else if(tag.equals("trgterIndvdlArray")){
-                            buffer.append("가구유형 :");
+                        else if(tag.equals("relJobsNm")){
+
                             xpp.next();
-                            data.trgterIndvdlArray =xpp.getText();
+                            data.relJobsNm =xpp.getText();
 
                             buffer.append(xpp.getText());
                             buffer.append("\n");
                         }
-                        else if(tag.equals("lifeArray")){
-                            buffer.append("생애주기 :");
+                        else if(tag.equals("pfCond")){
+
                             xpp.next();
-                            data.lifeArray =xpp.getText();
+                            data.pfCond =xpp.getText();
+
+                            buffer.append(xpp.getText());
+                            buffer.append("\n");
+                        }
+                        else if(tag.equals("selMthd")){
+
+                            xpp.next();
+                            data.selMthd =xpp.getText();
+
+                            buffer.append(xpp.getText());
+                            buffer.append("\n");
+                        }
+                        else if(tag.equals("workdayWorkhrCont")){
+
+                            xpp.next();
+                            data.workdayWorkhrCont =xpp.getText();
 
 
                             buffer.append(xpp.getText());
@@ -129,7 +145,7 @@ public class PublicDataDetailParser {
                     case XmlPullParser.END_TAG:
                         tag= xpp.getName(); // 태그 이름 얻어오기
 
-                        if(tag.equals("wantedDtl")) {
+                        if(tag.equals("wantedInfo")) {
                             buffer.append("\n"); // 첫번째 검색결과 끝 줄바꿈
 
                             publicDataDetailArray.add(new PublicDataDetail(data));
