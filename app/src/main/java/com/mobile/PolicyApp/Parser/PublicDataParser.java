@@ -50,8 +50,6 @@ public class PublicDataParser {
 
     public ArrayList<PublicDataDetail> XMLParserDataDetail()//상세파서
     {
-        //ArrayList<PublicDataDetail> food = publicDataDetailParser.XMLParser(dataDetailURL);
-        //return food;
         return publicDataDetailParser.XMLParser(dataDetailURL);
     }
 
